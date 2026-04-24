@@ -863,7 +863,7 @@
       {
         id: "reach",
         name: "A-List and Reach upsell",
-        description: "Saved-search upsell, curated permission, first pitch, pipeline check-in, Recruit Unlimited, and A-List drip paths."
+        description: "Saved-search upsell, reactivation upsell, curated permission, first pitch, pipeline check-in, Recruit Unlimited, and A-List drip paths."
       },
       {
         id: "ops",
@@ -873,7 +873,7 @@
       {
         id: "reactivation",
         name: "Reactivation and compliance",
-        description: "Inactive-company drips, renewals, moderation warnings, and policy enforcement."
+        description: "Weekly activity summaries, renewals, moderation warnings, and policy enforcement."
       }
     ];
 
@@ -1714,7 +1714,7 @@
       },
       {
         name: "Sales::ReactivationDripperMailer#drip_1",
-        stage: "reactivation",
+        stage: "reach",
         deliveryType: "Caffeinate drip",
         audience: "Inactive startup company admin",
         trigger: "Startup is inactive; reactivation sequence begins.",
@@ -1730,7 +1730,7 @@
       },
       {
         name: "Sales::ReactivationDripperMailer#drip_2",
-        stage: "reactivation",
+        stage: "reach",
         deliveryType: "Caffeinate drip",
         audience: "Inactive startup company admin",
         trigger: "Startup reactivation sequence continues.",
@@ -1746,7 +1746,7 @@
       },
       {
         name: "Sales::ReactivationDripperMailer#drip_3",
-        stage: "reactivation",
+        stage: "reach",
         deliveryType: "Caffeinate drip",
         audience: "Inactive startup company admin",
         trigger: "Startup reactivation sequence final email.",
@@ -1805,10 +1805,20 @@
       "Source::SavedSearchDripperMailer#drip4"
     ]);
 
+    const reactivationUpsellEmails = new Set([
+      "Sales::ReactivationDripperMailer#drip_1",
+      "Sales::ReactivationDripperMailer#drip_2",
+      "Sales::ReactivationDripperMailer#drip_3"
+    ]);
+
     const intentMeta = {
       "saved-search-upsell": {
         label: "Reach upsell",
         description: "Saved-search usage qualifies a Sales::Campaign, starts SavedSearchDripper, and pitches wellfound:ai/Autopilot for expanded reach."
+      },
+      "reactivation-upsell": {
+        label: "Reach upsell",
+        description: "Inactive-company reactivation drips pitch wellfound:ai Suite/Autopilot and ask the recruiter to book a RecruiterCloud intro."
       }
     };
 
@@ -1950,6 +1960,11 @@
         title: "Saved-search dripper is an upsell",
         body: "Sales::Campaign#send! starts SavedSearchDripper for the saved_search campaign, and the mailer completes that campaign while pitching wellfound:ai/Autopilot for expanded reach.",
         ref: "app/models/sales/campaign.rb:77-82; app/mailers/source/saved_search_dripper_mailer.rb:7-21,30-34"
+      },
+      {
+        title: "Reactivation dripper is an upsell",
+        body: "ReactivationDripper is a sales_reactivation Caffeinate campaign; the email copy pitches wellfound:ai Suite/Autopilot and booking a RecruiterCloud intro.",
+        ref: "app/drippers/reactivation_dripper.rb:1-7; app/mailers/sales/reactivation_dripper_mailer.rb:5-13; app/views/sales/reactivation_dripper_mailer/drip_1.html.erb:3-8"
       }
     ];
 
@@ -1996,6 +2011,7 @@
 
     function intentFor(email) {
       if (savedSearchUpsellEmails.has(email.name)) return intentMeta["saved-search-upsell"];
+      if (reactivationUpsellEmails.has(email.name)) return intentMeta["reactivation-upsell"];
       return null;
     }
 
@@ -2093,7 +2109,7 @@
       journey.innerHTML = stages.map((stage, index) => {
         const stageEmails = rows.filter((email) => email.stage === stage.id);
         const stageTotals = totals(stageEmails);
-        const list = stageEmails.slice(0, 7).map((email) => `
+        const list = stageEmails.map((email) => `
           <div class="email-mini" tabindex="0" role="button" data-email="${email.name}">
             <div class="mini-title">
               <span>${shortName(email.name)}</span>
@@ -2121,7 +2137,6 @@
             </div>
             <div class="stage-list">
               ${list || `<div class="mini-trigger">No emails after filters.</div>`}
-              ${stageEmails.length > 7 ? `<div class="mini-trigger">+ ${stageEmails.length - 7} more in row list</div>` : ""}
             </div>
           </article>
         `;
