@@ -1,0 +1,2229 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Recruiter Email Journey Map</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --bg: #f7f5ef;
+      --surface: #fffefa;
+      --ink: #1b1d1f;
+      --muted: #61656b;
+      --line: #ded8cd;
+      --line-strong: #bfb5a5;
+      --green: #206b56;
+      --green-soft: #dfece4;
+      --blue: #315b7c;
+      --blue-soft: #dce9f2;
+      --amber: #8a5a15;
+      --amber-soft: #f3e3c5;
+      --red: #9b3d31;
+      --red-soft: #f0d9d4;
+      --gray-soft: #ece7de;
+      --shadow: 0 12px 30px rgba(30, 24, 16, 0.08);
+      --radius: 8px;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--ink);
+    }
+
+    a {
+      color: inherit;
+    }
+
+    .shell {
+      min-height: 100vh;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      border-bottom: 1px solid var(--line);
+      background: rgba(247, 245, 239, 0.94);
+      backdrop-filter: blur(14px);
+    }
+
+    .topbar-inner {
+      display: flex;
+      gap: 18px;
+      align-items: center;
+      justify-content: space-between;
+      max-width: 1440px;
+      margin: 0 auto;
+      padding: 14px 24px;
+    }
+
+    .brand {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      min-width: 240px;
+    }
+
+    .mark {
+      display: grid;
+      place-items: center;
+      width: 34px;
+      height: 34px;
+      border-radius: 7px;
+      background: var(--ink);
+      color: var(--surface);
+      font-weight: 700;
+    }
+
+    .brand-title {
+      font-size: 14px;
+      font-weight: 700;
+      line-height: 1.1;
+    }
+
+    .brand-meta {
+      margin-top: 2px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .top-actions {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    button,
+    select,
+    input {
+      font: inherit;
+    }
+
+    .control,
+    .chip-button {
+      min-height: 36px;
+      border: 1px solid var(--line);
+      border-radius: 7px;
+      background: var(--surface);
+      color: var(--ink);
+    }
+
+    .control {
+      padding: 0 10px;
+      min-width: 150px;
+    }
+
+    .search {
+      min-width: 260px;
+    }
+
+    .chip-button {
+      padding: 0 12px;
+      cursor: pointer;
+    }
+
+    .chip-button.active {
+      border-color: var(--green);
+      background: var(--green-soft);
+      color: var(--green);
+    }
+
+    .hero {
+      max-width: 1440px;
+      margin: 0 auto;
+      padding: 34px 24px 22px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.2fr) minmax(320px, 0.8fr);
+      gap: 28px;
+      align-items: end;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(36px, 5vw, 78px);
+      line-height: 0.96;
+      letter-spacing: 0;
+      max-width: 880px;
+    }
+
+    .lead {
+      margin: 18px 0 0;
+      max-width: 760px;
+      color: var(--muted);
+      font-size: 17px;
+      line-height: 1.55;
+    }
+
+    .source-note {
+      margin-top: 16px;
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .source-note span {
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 6px 10px;
+      background: rgba(255, 254, 250, 0.7);
+    }
+
+    .metrics {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .metric {
+      border-top: 1px solid var(--line-strong);
+      padding-top: 12px;
+    }
+
+    .metric-value {
+      font-size: 30px;
+      font-weight: 760;
+      line-height: 1.1;
+    }
+
+    .metric-label {
+      margin-top: 4px;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.35;
+    }
+
+    .layout {
+      max-width: 1440px;
+      margin: 0 auto;
+      padding: 8px 24px 56px;
+    }
+
+    .section-title {
+      display: flex;
+      gap: 16px;
+      align-items: flex-end;
+      justify-content: space-between;
+      margin: 34px 0 14px;
+      border-top: 1px solid var(--line);
+      padding-top: 22px;
+    }
+
+    h2 {
+      margin: 0;
+      font-size: 22px;
+      line-height: 1.2;
+    }
+
+    .section-title p {
+      margin: 0;
+      max-width: 680px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.45;
+      text-align: right;
+    }
+
+    .journey {
+      display: grid;
+      grid-template-columns: repeat(8, minmax(220px, 1fr));
+      gap: 12px;
+      overflow-x: auto;
+      padding-bottom: 14px;
+    }
+
+    .stage {
+      position: relative;
+      min-width: 220px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--surface);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .stage-head {
+      padding: 14px 14px 12px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .stage-index {
+      color: var(--green);
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .stage-name {
+      margin-top: 8px;
+      font-size: 16px;
+      font-weight: 760;
+      line-height: 1.2;
+    }
+
+    .stage-desc {
+      margin-top: 7px;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.35;
+    }
+
+    .stage-stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1px;
+      background: var(--line);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .stage-stat {
+      background: var(--surface);
+      padding: 10px 12px;
+    }
+
+    .stage-stat strong {
+      display: block;
+      font-size: 18px;
+    }
+
+    .stage-stat span {
+      display: block;
+      color: var(--muted);
+      font-size: 11px;
+      margin-top: 2px;
+    }
+
+    .stage-list {
+      display: grid;
+      gap: 8px;
+      padding: 12px;
+    }
+
+    .email-mini {
+      border: 1px solid var(--line);
+      border-radius: 7px;
+      background: #fbfaf6;
+      padding: 10px;
+      cursor: pointer;
+      transition: transform 160ms ease, border-color 160ms ease, background-color 160ms ease;
+    }
+
+    .email-mini:hover,
+    .email-mini:focus {
+      transform: translateY(-1px);
+      border-color: var(--green);
+      background: #ffffff;
+      outline: none;
+    }
+
+    .mini-title {
+      display: flex;
+      gap: 8px;
+      align-items: flex-start;
+      justify-content: space-between;
+      font-size: 12px;
+      font-weight: 720;
+      line-height: 1.28;
+      word-break: break-word;
+    }
+
+    .mini-meta {
+      margin-top: 8px;
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      min-height: 22px;
+      padding: 3px 7px;
+      border-radius: 999px;
+      background: var(--gray-soft);
+      color: var(--muted);
+      font-size: 11px;
+      line-height: 1.2;
+      white-space: nowrap;
+    }
+
+    .pill.local {
+      background: var(--green-soft);
+      color: var(--green);
+    }
+
+    .pill.campaign {
+      background: var(--red-soft);
+      color: var(--red);
+    }
+
+    .pill.workflow {
+      background: var(--amber-soft);
+      color: var(--amber);
+    }
+
+    .pill.drip {
+      background: var(--blue-soft);
+      color: var(--blue);
+    }
+
+    .pill.reach {
+      background: #e8e0f4;
+      color: #5b3f7b;
+    }
+
+    .pill.cadence {
+      font-weight: 680;
+    }
+
+    .pill.cadence-one-time {
+      background: var(--amber-soft);
+      color: var(--amber);
+    }
+
+    .pill.cadence-weekly {
+      background: var(--blue-soft);
+      color: var(--blue);
+    }
+
+    .pill.cadence-event-based {
+      background: var(--green-soft);
+      color: var(--green);
+    }
+
+    .mini-trigger {
+      margin-top: 8px;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.35;
+    }
+
+    .mini-performance {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px;
+      margin-top: 8px;
+    }
+
+    .mini-performance div {
+      border-top: 1px solid var(--line);
+      padding-top: 6px;
+      min-width: 0;
+    }
+
+    .mini-performance strong {
+      display: block;
+      font-size: 14px;
+      line-height: 1.1;
+    }
+
+    .mini-performance span {
+      display: block;
+      margin-top: 2px;
+      color: var(--muted);
+      font-size: 10px;
+    }
+
+    .mini-link {
+      display: inline-flex;
+      align-items: center;
+      min-height: 26px;
+      margin-top: 9px;
+      padding: 5px 8px;
+      border: 1px solid var(--line);
+      border-radius: 7px;
+      background: var(--surface);
+      color: var(--ink);
+      font-size: 11px;
+      line-height: 1;
+      text-decoration: none;
+    }
+
+    .mini-link:hover {
+      border-color: var(--green);
+      color: var(--green);
+    }
+
+    .panels {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 360px;
+      gap: 18px;
+      align-items: start;
+    }
+
+    .card-list {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .email-card,
+    .detail-panel,
+    .evidence-panel,
+    .sequence-panel {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--surface);
+      box-shadow: var(--shadow);
+    }
+
+    .email-card {
+      padding: 14px;
+    }
+
+    .email-card.hidden {
+      display: none;
+    }
+
+    .email-card h3 {
+      margin: 0;
+      font-size: 15px;
+      line-height: 1.25;
+      word-break: break-word;
+    }
+
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px;
+      margin-top: 12px;
+    }
+
+    .card-kpi {
+      border-top: 1px solid var(--line);
+      padding-top: 8px;
+      min-width: 0;
+    }
+
+    .card-kpi strong {
+      display: block;
+      font-size: 18px;
+      line-height: 1.1;
+    }
+
+    .card-kpi span {
+      color: var(--muted);
+      font-size: 11px;
+    }
+
+    .trigger-text {
+      margin-top: 12px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.45;
+    }
+
+    .links {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: 12px;
+    }
+
+    .link-button {
+      border: 1px solid var(--line);
+      border-radius: 7px;
+      padding: 7px 9px;
+      text-decoration: none;
+      color: var(--ink);
+      font-size: 12px;
+      background: #fbfaf6;
+    }
+
+    .detail-panel {
+      position: sticky;
+      top: 78px;
+      padding: 16px;
+    }
+
+    .detail-panel h3 {
+      margin: 0;
+      font-size: 18px;
+      line-height: 1.25;
+    }
+
+    .detail-body {
+      margin-top: 12px;
+      display: grid;
+      gap: 12px;
+    }
+
+    .detail-row {
+      border-top: 1px solid var(--line);
+      padding-top: 10px;
+    }
+
+    .detail-row span {
+      display: block;
+      color: var(--muted);
+      font-size: 11px;
+      text-transform: uppercase;
+    }
+
+    .detail-row strong,
+    .detail-row p {
+      margin: 4px 0 0;
+      font-size: 13px;
+      line-height: 1.45;
+    }
+
+    .sequence-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .sequence-panel {
+      padding: 16px;
+    }
+
+    .sequence-panel h3 {
+      margin: 0;
+      font-size: 16px;
+    }
+
+    .sequence-meta {
+      margin: 6px 0 0;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.4;
+    }
+
+    .sequence-steps {
+      display: grid;
+      gap: 8px;
+      margin-top: 14px;
+    }
+
+    .step {
+      display: grid;
+      grid-template-columns: 30px minmax(0, 1fr);
+      gap: 10px;
+      align-items: start;
+    }
+
+    .step-number {
+      display: grid;
+      place-items: center;
+      width: 30px;
+      height: 30px;
+      border-radius: 999px;
+      background: var(--gray-soft);
+      color: var(--ink);
+      font-size: 12px;
+      font-weight: 760;
+    }
+
+    .step-copy {
+      border-bottom: 1px solid var(--line);
+      padding-bottom: 8px;
+      font-size: 13px;
+      line-height: 1.35;
+    }
+
+    .step-copy small {
+      display: block;
+      color: var(--muted);
+      margin-top: 2px;
+      font-size: 11px;
+    }
+
+    .evidence-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .evidence-panel {
+      padding: 16px;
+    }
+
+    .evidence-panel h3 {
+      margin: 0;
+      font-size: 15px;
+      line-height: 1.3;
+    }
+
+    .evidence-panel p {
+      color: var(--muted);
+      margin: 8px 0 0;
+      font-size: 13px;
+      line-height: 1.45;
+    }
+
+    .code-ref {
+      display: inline-block;
+      margin-top: 12px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 12px;
+      color: var(--green);
+      word-break: break-all;
+    }
+
+    .empty {
+      border: 1px dashed var(--line-strong);
+      border-radius: var(--radius);
+      padding: 28px;
+      color: var(--muted);
+      text-align: center;
+      background: rgba(255, 254, 250, 0.55);
+    }
+
+    @media (max-width: 1180px) {
+      .hero-grid,
+      .panels,
+      .sequence-grid,
+      .evidence-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .detail-panel {
+        position: static;
+      }
+
+      .card-list {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 720px) {
+      .topbar-inner,
+      .hero,
+      .layout {
+        padding-left: 16px;
+        padding-right: 16px;
+      }
+
+      .topbar-inner,
+      .top-actions,
+      .section-title {
+        align-items: stretch;
+        flex-direction: column;
+      }
+
+      .brand {
+        min-width: 0;
+      }
+
+      .search,
+      .control,
+      .chip-button {
+        width: 100%;
+        min-width: 0;
+      }
+
+      .metrics,
+      .card-list {
+        grid-template-columns: 1fr;
+      }
+
+      .section-title p {
+        text-align: left;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <header class="topbar">
+      <div class="topbar-inner">
+        <div class="brand">
+          <div class="mark">WF</div>
+          <div>
+            <div class="brand-title">Recruiter Email Journey</div>
+            <div class="brand-meta">Notion inventory + AngelList code trace</div>
+          </div>
+        </div>
+        <div class="top-actions">
+          <input class="control search" id="search" type="search" placeholder="Search email, trigger, audience">
+          <select class="control" id="stageFilter" aria-label="Filter by stage">
+            <option value="all">All stages</option>
+          </select>
+          <select class="control" id="typeFilter" aria-label="Filter by delivery type">
+            <option value="all">All delivery types</option>
+          </select>
+          <select class="control" id="cadenceFilter" aria-label="Filter by cadence">
+            <option value="all">All cadences</option>
+            <option value="one-time">One-time</option>
+            <option value="weekly">Weekly</option>
+            <option value="event-based">Event-based</option>
+          </select>
+          <button class="chip-button" id="reachFilter" type="button">Reach update only</button>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="hero-grid">
+          <div>
+            <h1>Where recruiter emails fire in the journey</h1>
+            <p class="lead">A static working map of the recruiter-facing email inventory. Each card ties the Notion row to the product moment, delivery mechanism, cadence, send timing, recent performance, and the codepath that triggers it.</p>
+            <div class="source-note">
+              <span>Generated Apr 24, 2026</span>
+              <span>Notion: Recruiter Email Inventory</span>
+              <span>Repo: /Users/amit/Developer/AngelList</span>
+            </div>
+          </div>
+          <div class="metrics" id="overviewMetrics"></div>
+        </div>
+      </section>
+
+      <div class="layout">
+        <section>
+          <div class="section-title">
+            <h2>Journey Map</h2>
+            <p>Cards are ordered by when a recruiter or company contact is most likely to receive them. Cadence pills separate one-time sequences, weekly digests, and event-based sends.</p>
+          </div>
+          <div class="journey" id="journey"></div>
+        </section>
+
+        <section>
+          <div class="section-title">
+            <h2>Workflow Sequences</h2>
+            <p>Long-running paths where one trigger starts a multi-email journey or Caffeinate drip.</p>
+          </div>
+          <div class="sequence-grid" id="sequences"></div>
+        </section>
+
+        <section>
+          <div class="section-title">
+            <h2>Email Rows</h2>
+            <p>Filterable view of the Notion inventory by stage, delivery type, cadence, and Reach relevance. Click any card to pin details in the right rail.</p>
+          </div>
+          <div class="panels">
+            <div>
+              <div class="card-list" id="emailCards"></div>
+              <div class="empty" id="emptyState" hidden>No emails match the current filters.</div>
+            </div>
+            <aside class="detail-panel" id="detailPanel"></aside>
+          </div>
+        </section>
+
+        <section>
+          <div class="section-title">
+            <h2>Trigger Evidence</h2>
+            <p>Representative code references used to place the emails on the map.</p>
+          </div>
+          <div class="evidence-grid" id="evidence"></div>
+        </section>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    const stages = [
+      {
+        id: "account",
+        name: "Account and company setup",
+        description: "Company creation, startup claim, onboarding, access requests, and profile-completion nudges."
+      },
+      {
+        id: "invite",
+        name: "Invite and nurture",
+        description: "Prospective recruiter invites and pending-invite Iterable journeys."
+      },
+      {
+        id: "job",
+        name: "Job setup",
+        description: "Published jobs, ATS access, job collections, and early job-related prompts."
+      },
+      {
+        id: "discovery",
+        name: "Candidate discovery",
+        description: "Curated lists, saved searches, weekly reveals, new candidates, and sourcing digests."
+      },
+      {
+        id: "application",
+        name: "Application and match",
+        description: "Applications, startup notifications, matches, replies, reminders, and expiring candidates."
+      },
+      {
+        id: "reach",
+        name: "A-List and Reach upsell",
+        description: "Curated permission, first pitch, pipeline check-in, free-trial, Recruit Unlimited, and A-List drip paths."
+      },
+      {
+        id: "ops",
+        name: "ATS and team ops",
+        description: "Track, scorecards, interviewer assignments, @mentions, team access, and role tagging."
+      },
+      {
+        id: "reactivation",
+        name: "Reactivation and compliance",
+        description: "Inactive-company drips, renewals, moderation warnings, and policy enforcement."
+      }
+    ];
+
+    const emails = [
+      {
+        name: "TalentStartupOnboardingMailer#welcome",
+        stage: "account",
+        deliveryType: "local mailer",
+        audience: "New recruiter at a claimed/submitted startup",
+        trigger: "Recruiter completes startup claim or company submission.",
+        timing: "Transactional on completion; scheduled from company creation.",
+        sends: 1808,
+        delivered: 1764,
+        uniqueClicks: 53,
+        totalClicks: 118,
+        ctr: 3,
+        reach: "Yes",
+        code: "app/graphql/mutations/talent/create_company.rb:40-42",
+        notion: "https://www.notion.so/348a673913a481e0b1c2d349ecfcf2b3"
+      },
+      {
+        name: "Email::RecruitOnboarding",
+        stage: "account",
+        deliveryType: "Iterable workflow",
+        audience: "New recruiter / company admin",
+        trigger: "Recruiter onboarding is initiated after company creation.",
+        timing: "Workflow sequence: workday wait, job-listing tips, ATS tips, salary tips, interview tips, benefits tips.",
+        sends: 14145,
+        delivered: 3965,
+        uniqueClicks: 67,
+        totalClicks: 166,
+        ctr: 1.68,
+        reach: "Yes",
+        iterableId: 411322,
+        code: "app/services/email/recruit_onboarding/mailer.rb:6-13",
+        notion: "https://www.notion.so/348a673913a481d88008e24c3a95ecc6"
+      },
+      {
+        name: "Email::IncompleteStartupReminder",
+        stage: "account",
+        deliveryType: "Iterable campaign",
+        audience: "Startup admin with incomplete profile",
+        trigger: "Startup profile remains incomplete after recruit onboarding.",
+        timing: "Scheduled 3 days after Talent::Recruit::OnboardingService#onboard_company!.",
+        sends: 3251,
+        delivered: 3150,
+        uniqueClicks: 185,
+        totalClicks: 310,
+        ctr: 5.87,
+        reach: "No",
+        iterableId: 3768509,
+        code: "app/services/talent/recruit/onboarding_service.rb:23",
+        notion: "https://www.notion.so/348a673913a48119a2abf409b98abc89"
+      },
+      {
+        name: "TalentMailer#new_recruiter_access_request",
+        stage: "account",
+        deliveryType: "local mailer",
+        audience: "User who requested recruiting access",
+        trigger: "User submits recruiting-access request.",
+        timing: "Transactional on request.",
+        sends: 217,
+        delivered: 188,
+        uniqueClicks: 0,
+        totalClicks: 0,
+        ctr: 0,
+        reach: "No",
+        code: "app/models/recruiter_access_request.rb:52",
+        notion: "https://www.notion.so/348a673913a48167af10c1fa774e4e55"
+      },
+      {
+        name: "TalentMailer#recruiter_access_request_processed",
+        stage: "account",
+        deliveryType: "local mailer",
+        audience: "Recruiter access requester",
+        trigger: "Recruiting access request is processed.",
+        timing: "Transactional on approval or denial.",
+        sends: null,
+        delivered: null,
+        uniqueClicks: null,
+        totalClicks: null,
+        ctr: null,
+        reach: "No",
+        code: "app/models/recruiter_access_request.rb:75",
+        notion: "https://www.notion.so/348a673913a48189a708f7d250e1b8ce"
+      },
+      {
+        name: "RecruitingPermissionMailer#notify_access_granted",
+        stage: "account",
+        deliveryType: "local mailer",
+        audience: "Startup talent contact user",
+        trigger: "New recruiter is auto-granted access by work-email authorization.",
+        timing: "Transactional on grant.",
+        sends: 519,
+        delivered: 454,
+        uniqueClicks: 39,
+        totalClicks: 39,
+        ctr: 8.59,
+        reach: "No",
+        code: "app/services/talent/startup_recruiter_service.rb:131-143",
+        notion: "https://www.notion.so/348a673913a481aa8ce8c1c78cf7b3a4"
+      },
+      {
+        name: "Talent::Recruit::RecruiterInviteEmail",
+        stage: "invite",
+        deliveryType: "Iterable campaign",
+        audience: "Prospective recruiter invitee",
+        trigger: "Recruiter invite is created and sent.",
+        timing: "Transactional on invite.",
+        sends: 1871,
+        delivered: null,
+        uniqueClicks: null,
+        totalClicks: null,
+        ctr: null,
+        reach: "Yes",
+        iterableId: 1299145,
+        code: "app/models/recruiter_invite.rb:87-90",
+        notion: "https://www.notion.so/348a673913a48166b81bfc8c6396c321"
+      },
+      {
+        name: "Email::Prospecting::RecruiterInviteReminders",
+        stage: "invite",
+        deliveryType: "Iterable workflow",
+        audience: "Prospective recruiter invitee",
+        trigger: "Recruiter invite remains pending.",
+        timing: "Workflow sequence: initial invite, wait 3 days, pending check, reminders.",
+        sends: null,
+        delivered: null,
+        uniqueClicks: null,
+        totalClicks: null,
+        ctr: null,
+        reach: "Yes",
+        iterableId: 378821,
+        code: "app/models/recruiter_invite.rb:93-98",
+        notion: "https://www.notion.so/348a673913a48172bfeafc1cecdd8e9e"
+      },
+      {
+        name: "Email::Prospecting::RecruiterNurturingSequence",
+        stage: "invite",
+        deliveryType: "Iterable workflow",
+        audience: "Prospective recruiter invitee",
+        trigger: "Admin-initiated recruiter invite starts nurturing.",
+        timing: "Workflow sequence: initial email, 5-day wait, pending checks, two reminders, Zoom link.",
+        sends: 4,
+        delivered: 3,
+        uniqueClicks: 0,
+        totalClicks: 0,
+        ctr: 0,
+        reach: "Yes",
+        iterableId: 381134,
+        code: "app/services/email/prospecting/recruiter_nurturing_sequence/mailer.rb:11-14",
+        notion: "https://www.notion.so/348a673913a481ccb057cd5a6c42cfdf"
+      },
+      {
+        name: "JobListingMailer#post_confirmation_email",
+        stage: "job",
+        deliveryType: "local mailer",
+        audience: "Recruiter who posted the job",
+        trigger: "Job listing is published.",
+        timing: "Transactional; sent to creator plus recruiting contact/subscribers.",
+        sends: 2709,
+        delivered: 2688,
+        uniqueClicks: 323,
+        totalClicks: 616,
+        ctr: 12.02,
+        reach: "Yes",
+        code: "app/models/job_listing.rb:560-568",
+        notion: "https://www.notion.so/348a673913a48171aee9e68acecd2cee"
+      },
+      {
+        name: "Email::JobCollections",
+        stage: "job",
+        deliveryType: "Iterable campaign",
+        audience: "User, recruiter or candidate, profile-gated",
+        trigger: "Job collection is assembled and ready to notify.",
+        timing: "Transactional on collection publish; worker scheduled 1 hour after publish.",
+        sends: 0,
+        delivered: 0,
+        uniqueClicks: 0,
+        totalClicks: 0,
+        ctr: null,
+        reach: "No",
+        iterableId: 5978756,
+        code: "app/models/job_collection.rb:214-215",
+        notion: "https://www.notion.so/348a673913a48165b305c1db12134a31"
+      },
+      {
+        name: "AtsIntegrationsMailer#greenhouse_ats_admin_request_for_access",
+        stage: "job",
+        deliveryType: "local mailer",
+        audience: "Greenhouse ATS admin",
+        trigger: "Recruiter requests startup ATS access.",
+        timing: "Transactional from ATS integration activation.",
+        sends: null,
+        delivered: null,
+        uniqueClicks: null,
+        totalClicks: null,
+        ctr: null,
+        reach: "No",
+        code: "app/services/ats_integration/activation_service.rb:7-21",
+        notion: "https://www.notion.so/348a673913a481fbb00effee7d123419"
+      },
+      {
+        name: "Email::NewCandidates",
+        stage: "discovery",
+        deliveryType: "Iterable campaign",
+        audience: "Recruiter opted into new-candidates list",
+        trigger: "New candidate previews are available for a recruiter.",
+        timing: "Scheduled digest from weekly curated email batch.",
+        sends: 50020,
+        delivered: 7533,
+        uniqueClicks: 530,
+        totalClicks: 1189,
+        ctr: 7.03,
+        reach: "No",
+        iterableId: 4931035,
+        code: "a_list/app/services/a_list/companies/candidate_profile_search_mailer.rb:57-64",
+        notion: "https://www.notion.so/348a673913a48199995fc841ca1b9c57"
+      },
+      {
+        name: "Email::WeeklyRevealsReminder",
+        stage: "discovery",
+        deliveryType: "Iterable campaign",
+        audience: "Recruiter on a calibration list",
+        trigger: "Weekly reveals are pending on a calibration list.",
+        timing: "Scheduled weekly reminder for sent but incomplete weekly lists.",
+        sends: 17548,
+        delivered: 4243,
+        uniqueClicks: 45,
+        totalClicks: 114,
+        ctr: 1.06,
+        reach: "Potential",
+        iterableId: 5767230,
+        code: "lib/tasks/weekly_reveals.rake:6-18",
+        notion: "https://www.notion.so/348a673913a4816a8fd1f725b41e6a56"
+      },
+      {
+        name: "Email::CalibrationList::Automatedgtm",
+        stage: "discovery",
+        deliveryType: "Iterable campaign",
+        audience: "Recruiter on an automated calibration list",
+        trigger: "Automated calibration list is ready.",
+        timing: "Transactional on ready after automated list creation.",
+        sends: null,
+        delivered: null,
+        uniqueClicks: null,
+        totalClicks: null,
+        ctr: null,
+        reach: "Yes",
+        iterableId: 6610448,
+        code: "app/workers/calibration_lists/automated/create_worker.rb:124-130",
+        notion: "https://www.notion.so/348a673913a4812e9de4c633ea8bae04"
+      },
+      {
+        name: "Email::CalibrationList#deliver_ready_email",
+        stage: "discovery",
+        deliveryType: "Iterable campaign",
+        audience: "Recruiter on a calibration list",
+        trigger: "Admin-tooling calibration list is ready.",
+        timing: "Transactional on ready.",
+        sends: 0,
+        delivered: 0,
+        uniqueClicks: 0,
+        totalClicks: 0,
+        ctr: null,
+        reach: "No",
+        iterableId: 4943673,
+        code: "app/services/email/calibration_list/mailer.rb:19-29",
+        notion: "https://www.notion.so/348a673913a4812b8483f30798f9b3e8"
+      },
+      {
+        name: "Email::CalibrationList#deliver_reminder_email",
+        stage: "discovery",
+        deliveryType: "Iterable campaign",
+        audience: "Recruiter on a calibration list",
+        trigger: "Calibration list reminder is due.",
+        timing: "Scheduled reminder.",
+        sends: 0,
+        delivered: 0,
+        uniqueClicks: 0,
+        totalClicks: 0,
+        ctr: null,
+        reach: "No",
+        iterableId: 4973337,
+        code: "app/services/email/calibration_list/mailer.rb:32-39",
+        notion: "https://www.notion.so/348a673913a48197912ae1751f522385"
+      },
+      {
+        name: "Source::SavedSearchDripperMailer#drip1",
+        stage: "discovery",
+        deliveryType: "Caffeinate drip",
+        audience: "A-List company user with saved search",
+        trigger: "A-List recruiter is eligible for saved-search upsell.",
+        timing: "Drip: 1 business day at noon Eastern.",
+        sends: 18,
+        delivered: 18,
+        uniqueClicks: 0,
+        totalClicks: 0,
+        ctr: 0,
+        reach: "Yes",
+        code: "app/drippers/saved_search_dripper.rb:8-11",
+        notion: "https://www.notion.so/348a673913a48154b3b2c87bbbf15797"
+      },
+      {
+        name: "Source::SavedSearchDripperMailer#drip2",
+        stage: "discovery",
+        deliveryType: "Caffeinate drip",
+        audience: "A-List company user",
+        trigger: "Saved-search upsell sequence continues.",
+        timing: "Drip: 4 business days.",
+        sends: 18,
+        delivered: 18,
+        uniqueClicks: 1,
+        totalClicks: 1,
+        ctr: 5.56,
+        reach: "Yes",
+        code: "app/mailers/source/saved_search_dripper_mailer.rb:11-12",
+        notion: "https://www.notion.so/348a673913a48162aa69d61175a0e6fd"
+      },
+      {
+        name: "Source::SavedSearchDripperMailer#drip3",
+        stage: "discovery",
+        deliveryType: "Caffeinate drip",
+        audience: "A-List company user",
+        trigger: "Saved-search upsell sequence continues.",
+        timing: "Drip: 8 business days.",
+        sends: 18,
+        delivered: 18,
+        uniqueClicks: 0,
+        totalClicks: 0,
+        ctr: 0,
+        reach: "Yes",
+        code: "app/mailers/source/saved_search_dripper_mailer.rb:15-16",
+        notion: "https://www.notion.so/348a673913a481599e83d3d446e2fc2a"
+      },
+      {
+        name: "Source::SavedSearchDripperMailer#drip4",
+        stage: "discovery",
+        deliveryType: "Caffeinate drip",
+        audience: "A-List company user",
+        trigger: "Saved-search upsell sequence final email.",
+        timing: "Drip: 12 business days.",
+        sends: 26,
+        delivered: 25,
+        uniqueClicks: 0,
+        totalClicks: 0,
+        ctr: 0,
+        reach: "Yes",
+        code: "app/mailers/source/saved_search_dripper_mailer.rb:19-21",
+        notion: "https://www.notion.so/348a673913a481ac998aec211ad46af1"
+      },
+      {
+        name: "TalentMailer#candidate_interested_email",
+        stage: "application",
+        deliveryType: "local mailer",
+        audience: "Startup contact or hiring manager",
+        trigger: "Candidate expresses interest in or applies to a startup job.",
+        timing: "Transactional on interest/apply when there is one candidate for the recipient.",
+        sends: 255373,
+        delivered: 3659,
+        uniqueClicks: 862,
+        totalClicks: 2602,
+        ctr: 23.56,
+        reach: "Yes",
+        code: "lib/notifier/recruiting_startups.rb:53-79",
+        notion: "https://www.notion.so/348a673913a48155a898e4662b55917b"
+      },
+      {
+        name: "TalentMailer#review_candidates_digest",
+        stage: "application",
+        deliveryType: "local mailer",
+        audience: "Startup contact / recruiter",
+        trigger: "Interested and suggested candidates accumulate for a startup.",
+        timing: "Scheduled digest when multiple candidates are grouped for the recipient.",
+        sends: 1820,
+        delivered: 1772,
+        uniqueClicks: 168,
+        totalClicks: 341,
+        ctr: 9.48,
+        reach: "Yes",
+        code: "lib/notifier/recruiting_startups.rb:73-79",
+        notion: "https://www.notion.so/348a673913a481de9569ea86ff8fade0"
+      },
+      {
+        name: "TalentMailer#expiring_candidates_digest",
+        stage: "application",
+        deliveryType: "local mailer",
+        audience: "Startup contact / recruiter",
+        trigger: "Applications are approaching expiration.",
+        timing: "Scheduled digest from NotifyStartupsOfExpiringApplications.",
+        sends: 3689,
+        delivered: 3585,
+        uniqueClicks: 170,
+        totalClicks: 338,
+        ctr: 4.74,
+        reach: "Check",
+        code: "app/services/job_application_service/notify_startups_of_expiring_applications.rb:40-54",
+        notion: "https://www.notion.so/348a673913a4815fa0b1db138fc028a5"
+      },
+      {
+        name: "TalentMailer#company_match_email",
+        stage: "application",
+        deliveryType: "local mailer",
+        audience: "Startup contact",
+        trigger: "Candidate and startup both express interest.",
+        timing: "Transactional on match.",
+        sends: 44110,
+        delivered: 1760,
+        uniqueClicks: 290,
+        totalClicks: 776,
+        ctr: 16.48,
+        reach: "No",
+        code: "app/models/job_pairing.rb:711-713",
+        notion: "https://www.notion.so/348a673913a48100b309f1217e948296"
+      },
+      {
+        name: "TalentMailer#match_reply_email",
+        stage: "application",
+        deliveryType: "local mailer",
+        audience: "Recruiter or candidate in a match conversation",
+        trigger: "Reply is sent in a match conversation.",
+        timing: "Transactional on reply.",
+        sends: 105782,
+        delivered: 28188,
+        uniqueClicks: 7390,
+        totalClicks: 12187,
+        ctr: 26.22,
+        reach: "No",
+        code: "app/models/conversation.rb:198-221",
+        notion: "https://www.notion.so/348a673913a4818ca12df20d1e52ebb9"
+      },
+      {
+        name: "TalentMailer#match_reminder_email",
+        stage: "application",
+        deliveryType: "local mailer",
+        audience: "Recruiter with pending match responses",
+        trigger: "Pending matches await recruiter response.",
+        timing: "Scheduled reminder; throttled by prior sends.",
+        sends: 1145,
+        delivered: 777,
+        uniqueClicks: 58,
+        totalClicks: 64,
+        ctr: 7.46,
+        reach: "No",
+        code: "app/mailers/talent_match_engagement_mailer.rb:53-66",
+        notion: "https://www.notion.so/348a673913a48180a1b5f8040beb576e"
+      },
+      {
+        name: "TalentMailer#candidate_link_email",
+        stage: "application",
+        deliveryType: "local mailer",
+        audience: "Teammate recruiter",
+        trigger: "Recruiter forwards a candidate to a teammate.",
+        timing: "Transactional on forward.",
+        sends: 0,
+        delivered: 0,
+        uniqueClicks: 0,
+        totalClicks: 0,
+        ctr: null,
+        reach: "No",
+        code: "app/models/applicant_tracker/comment.rb:63-69",
+        notion: "https://www.notion.so/348a673913a481acafe7e4974c715399"
+      },
+      {
+        name: "Email::Recruit::QualifiedInvite",
+        stage: "reach",
+        deliveryType: "Iterable workflow",
+        audience: "Prospective A-List recruiter",
+        trigger: "Recruiter qualifies for A-List invite.",
+        timing: "Workflow sequence with acceptance checks and reminders.",
+        sends: null,
+        delivered: null,
+        uniqueClicks: null,
+        totalClicks: null,
+        ctr: null,
+        reach: "Yes",
+        iterableId: 261411,
+        code: "app/services/talent/recruit/curated/permission_service.rb:245-249",
+        notion: "https://www.notion.so/348a673913a4815c9155c2b3c7666fd5"
+      },
+      {
+        name: "Email::Curated::CompanyFastTrack",
+        stage: "reach",
+        deliveryType: "Iterable workflow",
+        audience: "Curated-program recruiter",
+        trigger: "Company is fast-tracked in Curated program.",
+        timing: "Workflow sequence with next-day and permission checks.",
+        sends: null,
+        delivered: null,
+        uniqueClicks: null,
+        totalClicks: null,
+        ctr: null,
+        reach: "Yes",
+        iterableId: 291791,
+        code: "app/services/talent/recruit/curated/permission_service.rb:253-256",
+        notion: "https://www.notion.so/348a673913a4815da2e7d0908d99a2d4"
+      },
+      {
+        name: "Email::Recruit::FirstPitchSent",
+        stage: "reach",
+        deliveryType: "Iterable campaign",
+        audience: "A-List recruiter",
+        trigger: "Recruiter sends their first pitch/outreach to a candidate.",
+        timing: "Transactional on first pitch.",
+        sends: 29,
+        delivered: null,
+        uniqueClicks: null,
+        totalClicks: null,
+        ctr: null,
+        reach: "Yes",
+        iterableId: 4382000,
+        code: "app/services/talent/conversation/conversation_creation_service.rb:252-255",
+        notion: "https://www.notion.so/348a673913a481d18441c230666d0def"
+      },
+      {
+        name: "Email::Recruit::PipelineCheckin",
+        stage: "reach",
+        deliveryType: "Iterable workflow",
+        audience: "A-List recruiter",
+        trigger: "A-List conversation moves to dark state.",
+        timing: "Workflow sequence after pipeline goes dark.",
+        sends: null,
+        delivered: null,
+        uniqueClicks: null,
+        totalClicks: null,
+        ctr: null,
+        reach: "Yes",
+        iterableId: 275202,
+        code: "a_list/app/models/a_list/conversation.rb:718-719",
+        notion: "https://www.notion.so/348a673913a481c9b44eea62bb41a69e"
+      },
+      {
+        name: "Email::RecruitFreeTrialEnding",
+        stage: "reach",
+        deliveryType: "Iterable campaign",
+        audience: "Recruiter on free trial",
+        trigger: "Recruiter free trial is nearing end.",
+        timing: "Scheduled before trial end from Stripe event service.",
+        sends: 0,
+        delivered: 0,
+        uniqueClicks: 0,
+        totalClicks: 0,
+        ctr: null,
+        reach: "Yes",
+        iterableId: 2850675,
+        code: "app/services/talent/stripe_event_service.rb:388-403",
+        notion: "https://www.notion.so/348a673913a4816bbdf3dcd73b7a1659"
+      },
+      {
+        name: "Email::RecruitUnlimited",
+        stage: "reach",
+        deliveryType: "Iterable workflow",
+        audience: "Talent contact / most-recent startup recruiter",
+        trigger: "Promote Recruit Unlimited to startup.",
+        timing: "Workflow-driven upgrade sequence.",
+        sends: null,
+        delivered: null,
+        uniqueClicks: null,
+        totalClicks: null,
+        ctr: null,
+        reach: "Yes",
+        iterableId: 267699,
+        code: "app/services/email/recruit_unlimited/mailer.rb:11-17",
+        notion: "https://www.notion.so/348a673913a481fc9180f05fe96a110f"
+      },
+      {
+        name: "Talent::DiversityMailer",
+        stage: "reach",
+        deliveryType: "Iterable campaign",
+        audience: "A-List recruiter",
+        trigger: "URM/URG pitch-ratio percentile is computed via bulk worker.",
+        timing: "Scheduled bulk run.",
+        sends: 0,
+        delivered: 0,
+        uniqueClicks: 0,
+        totalClicks: 0,
+        ctr: null,
+        reach: "No",
+        iterableId: 1331199,
+        code: "app/workers/talent/recruit/diversity_mailer_bulk_worker.rb:22-43",
+        notion: "https://www.notion.so/348a673913a4817e9ff2d56a0a69c5b2"
+      },
+      {
+        name: "StartupAlistInviteV2Mailer#drip1",
+        stage: "reach",
+        deliveryType: "local mailer",
+        audience: "A-List startup company admin/founder",
+        trigger: "A-List startup invite sequence starts.",
+        timing: "Drip: day 1, skipping weekends.",
+        sends: null,
+        delivered: null,
+        uniqueClicks: null,
+        totalClicks: null,
+        ctr: null,
+        reach: "Yes",
+        code: "app/models/a_list/startup_invite.rb:116-119",
+        notion: "https://www.notion.so/348a673913a481efba72d763e71309fd"
+      },
+      {
+        name: "StartupAlistInviteV2Mailer#drip2",
+        stage: "reach",
+        deliveryType: "local mailer",
+        audience: "A-List startup company admin/founder",
+        trigger: "A-List startup invite sequence continues.",
+        timing: "Drip: day 4, skipping weekends.",
+        sends: null,
+        delivered: null,
+        uniqueClicks: null,
+        totalClicks: null,
+        ctr: null,
+        reach: "Yes",
+        code: "app/mailers/startup_alist_invite_v2_mailer.rb:17-23",
+        notion: "https://www.notion.so/348a673913a4817b91f8fc5d36201793"
+      },
+      {
+        name: "StartupAlistInviteV2Mailer#drip3",
+        stage: "reach",
+        deliveryType: "local mailer",
+        audience: "A-List startup company admin/founder",
+        trigger: "A-List startup invite sequence continues.",
+        timing: "Drip: day 8, skipping weekends.",
+        sends: null,
+        delivered: null,
+        uniqueClicks: null,
+        totalClicks: null,
+        ctr: null,
+        reach: "Yes",
+        code: "app/mailers/startup_alist_invite_v2_mailer.rb:43-47",
+        notion: "https://www.notion.so/348a673913a48104b04bc22056f1bc01"
+      },
+      {
+        name: "StartupAlistInviteV2Mailer#drip4",
+        stage: "reach",
+        deliveryType: "local mailer",
+        audience: "A-List startup company admin/founder",
+        trigger: "A-List startup invite sequence continues.",
+        timing: "Drip: day 12.",
+        sends: 196,
+        delivered: 195,
+        uniqueClicks: 4,
+        totalClicks: 4,
+        ctr: 2.05,
+        reach: "Yes",
+        code: "app/mailers/startup_alist_invite_v2_mailer.rb:49-52",
+        notion: "https://www.notion.so/348a673913a481faa224eee20dc9e176"
+      },
+      {
+        name: "StartupAlistInviteV2Mailer#drip5",
+        stage: "reach",
+        deliveryType: "local mailer",
+        audience: "A-List startup company admin/founder",
+        trigger: "A-List startup invite sequence continues.",
+        timing: "Drip: day 15.",
+        sends: null,
+        delivered: null,
+        uniqueClicks: null,
+        totalClicks: null,
+        ctr: null,
+        reach: "Yes",
+        code: "app/mailers/startup_alist_invite_v2_mailer.rb:55-58",
+        notion: "https://www.notion.so/348a673913a48162be8fee7415d69986"
+      },
+      {
+        name: "StartupAlistInviteV2Mailer#drip6",
+        stage: "reach",
+        deliveryType: "local mailer",
+        audience: "A-List startup company admin/founder",
+        trigger: "A-List startup invite sequence final email.",
+        timing: "Drip: day 20.",
+        sends: null,
+        delivered: null,
+        uniqueClicks: null,
+        totalClicks: null,
+        ctr: null,
+        reach: "Yes",
+        code: "app/mailers/startup_alist_invite_v2_mailer.rb:61-67",
+        notion: "https://www.notion.so/348a673913a4817a8221e6b7643990ca"
+      },
+      {
+        name: "ApplicantTrackerMailer#interviewer_assignment",
+        stage: "ops",
+        deliveryType: "local mailer",
+        audience: "Assigned interviewer on hiring team",
+        trigger: "Interview is submitted and assigned.",
+        timing: "Transactional on interview assignment.",
+        sends: null,
+        delivered: null,
+        uniqueClicks: null,
+        totalClicks: null,
+        ctr: null,
+        reach: "No",
+        code: "app/graphql/mutations/applicant_tracker/interview_submit.rb:41",
+        notion: "https://www.notion.so/348a673913a481c1ba1ee0dbb29c201a"
+      },
+      {
+        name: "ApplicantTrackerMailer#applicant_comment",
+        stage: "ops",
+        deliveryType: "local mailer",
+        audience: "Track user @mentioned",
+        trigger: "Teammate @mentions user on a candidate in Track.",
+        timing: "Transactional on mention.",
+        sends: 11,
+        delivered: 2,
+        uniqueClicks: 0,
+        totalClicks: 0,
+        ctr: 0,
+        reach: "No",
+        code: "app/models/applicant_tracker/comment.rb:69",
+        notion: "https://www.notion.so/348a673913a48181bf4fd8a96da270d0"
+      },
+      {
+        name: "ApplicantTrackerMailer#applicant_scorecard",
+        stage: "ops",
+        deliveryType: "local mailer",
+        audience: "Assigned interviewer on hiring team",
+        trigger: "Scorecard is requested or pending.",
+        timing: "Transactional plus scheduled reminder.",
+        sends: 231,
+        delivered: 6,
+        uniqueClicks: 0,
+        totalClicks: 0,
+        ctr: 0,
+        reach: "No",
+        code: "app/services/applicant_tracker/interview_scorecard_service.rb:52-57",
+        notion: "https://www.notion.so/348a673913a481ee8ac8cfc58894401a"
+      },
+      {
+        name: "ApplicantTrackerMailer#track_notification",
+        stage: "ops",
+        deliveryType: "local mailer",
+        audience: "Track user",
+        trigger: "Batched Track events: new candidates, scorecards, interviews.",
+        timing: "Scheduled digest, user-configurable daily or weekly.",
+        sends: 2,
+        delivered: 2,
+        uniqueClicks: 0,
+        totalClicks: 0,
+        ctr: 0,
+        reach: "No",
+        code: "app/models/applicant_tracker/notification.rb:40",
+        notion: "https://www.notion.so/348a673913a481e29654dcbf3a0e9857"
+      },
+      {
+        name: "StartupRoleMailer#tag_notification",
+        stage: "ops",
+        deliveryType: "local mailer",
+        audience: "Invited startup role contact",
+        trigger: "User is tagged in a startup role.",
+        timing: "Drip-style reminder with duplicate suppression.",
+        sends: null,
+        delivered: null,
+        uniqueClicks: null,
+        totalClicks: null,
+        ctr: null,
+        reach: "No",
+        code: "app/mailers/startup_role_mailer.rb:23-51",
+        notion: "https://www.notion.so/348a673913a4817ea723e46a40d3b0d6"
+      },
+      {
+        name: "ClaimsMailer#claim_notification",
+        stage: "ops",
+        deliveryType: "local mailer",
+        audience: "Company claim recipient",
+        trigger: "Claim record is created.",
+        timing: "Transactional on claim creation.",
+        sends: null,
+        delivered: null,
+        uniqueClicks: null,
+        totalClicks: null,
+        ctr: null,
+        reach: "No",
+        code: "app/models/claim.rb:51",
+        notion: "https://www.notion.so/348a673913a481159503d107426923cf"
+      },
+      {
+        name: "TalentMailer#weekly_activity_summary",
+        stage: "reactivation",
+        deliveryType: "local mailer",
+        audience: "Recruiter / company admin",
+        trigger: "Weekly activity exists for startup or active A-List recruiter.",
+        timing: "Scheduled weekly summary.",
+        sends: 10863,
+        delivered: 10554,
+        uniqueClicks: 274,
+        totalClicks: 463,
+        ctr: 2.6,
+        reach: "TBC",
+        code: "lib/talent.rb:242-250",
+        notion: "https://www.notion.so/348a673913a4815087fcef3b2d89bfb7"
+      },
+      {
+        name: "TalentMailer#upcoming_renewal",
+        stage: "reactivation",
+        deliveryType: "local mailer",
+        audience: "Source subscription owner",
+        trigger: "Upcoming Source renewal is due.",
+        timing: "Scheduled renewal notice.",
+        sends: null,
+        delivered: null,
+        uniqueClicks: null,
+        totalClicks: null,
+        ctr: null,
+        reach: "No",
+        code: "app/services/source/email_notifier.rb:10-24",
+        notion: "https://www.notion.so/348a673913a48144bf89d53b06a5ca78"
+      },
+      {
+        name: "TalentMailer#warning_email",
+        stage: "reactivation",
+        deliveryType: "local mailer",
+        audience: "Startup talent contact user",
+        trigger: "Job postings are disabled for policy violation.",
+        timing: "Transactional on enforcement action.",
+        sends: 1275,
+        delivered: 1007,
+        uniqueClicks: 189,
+        totalClicks: 211,
+        ctr: 18.77,
+        reach: "No",
+        code: "app/services/moderation_action/company/unpublish_job_listings_and_warn.rb:32",
+        notion: "https://www.notion.so/348a673913a4818a900fe0757cea1d3b"
+      },
+      {
+        name: "TalentMailer#startup_spam_warning",
+        stage: "reactivation",
+        deliveryType: "local mailer",
+        audience: "Startup talent contact user",
+        trigger: "Job posts are flagged as spam.",
+        timing: "Transactional on flag.",
+        sends: 1,
+        delivered: 1,
+        uniqueClicks: 0,
+        totalClicks: 0,
+        ctr: 0,
+        reach: "No",
+        code: "app/models/company_manual_review.rb:133",
+        notion: "https://www.notion.so/348a673913a48194ac1cc261594935dd"
+      },
+      {
+        name: "Sales::ReactivationDripperMailer#drip_1",
+        stage: "reactivation",
+        deliveryType: "Caffeinate drip",
+        audience: "Inactive startup company admin",
+        trigger: "Startup is inactive; reactivation sequence begins.",
+        timing: "Drip: 1 business day.",
+        sends: 116,
+        delivered: 116,
+        uniqueClicks: 3,
+        totalClicks: 3,
+        ctr: 2.59,
+        reach: "Yes",
+        code: "app/drippers/reactivation_dripper.rb:5-7",
+        notion: "https://www.notion.so/348a673913a481d084e4f5100391c41e"
+      },
+      {
+        name: "Sales::ReactivationDripperMailer#drip_2",
+        stage: "reactivation",
+        deliveryType: "Caffeinate drip",
+        audience: "Inactive startup company admin",
+        trigger: "Startup reactivation sequence continues.",
+        timing: "Drip: 4 business days.",
+        sends: 116,
+        delivered: 116,
+        uniqueClicks: 4,
+        totalClicks: 4,
+        ctr: 3.45,
+        reach: "Yes",
+        code: "app/mailers/sales/reactivation_dripper_mailer.rb:9-10",
+        notion: "https://www.notion.so/348a673913a4810188b1c9f65e17018a"
+      },
+      {
+        name: "Sales::ReactivationDripperMailer#drip_3",
+        stage: "reactivation",
+        deliveryType: "Caffeinate drip",
+        audience: "Inactive startup company admin",
+        trigger: "Startup reactivation sequence final email.",
+        timing: "Drip: 7 business days.",
+        sends: 117,
+        delivered: 117,
+        uniqueClicks: 5,
+        totalClicks: 5,
+        ctr: 4.27,
+        reach: "Yes",
+        code: "app/mailers/sales/reactivation_dripper_mailer.rb:13-14",
+        notion: "https://www.notion.so/348a673913a481b4a57bed6aceaa09a5"
+      }
+    ];
+
+    const visibleEmails = emails.filter((email) => email.sends !== 0);
+
+    const weeklyEmails = new Set([
+      "Email::NewCandidates",
+      "Email::WeeklyRevealsReminder",
+      "ApplicantTrackerMailer#track_notification",
+      "TalentMailer#weekly_activity_summary"
+    ]);
+
+    const oneTimeEmails = new Set([
+      "TalentStartupOnboardingMailer#welcome",
+      "Email::RecruitOnboarding",
+      "Email::IncompleteStartupReminder",
+      "Talent::Recruit::RecruiterInviteEmail",
+      "Email::Prospecting::RecruiterInviteReminders",
+      "Email::Prospecting::RecruiterNurturingSequence",
+      "Source::SavedSearchDripperMailer#drip1",
+      "Source::SavedSearchDripperMailer#drip2",
+      "Source::SavedSearchDripperMailer#drip3",
+      "Source::SavedSearchDripperMailer#drip4",
+      "Email::Recruit::QualifiedInvite",
+      "Email::Curated::CompanyFastTrack",
+      "Email::Recruit::PipelineCheckin",
+      "Email::RecruitUnlimited",
+      "StartupAlistInviteV2Mailer#drip1",
+      "StartupAlistInviteV2Mailer#drip2",
+      "StartupAlistInviteV2Mailer#drip3",
+      "StartupAlistInviteV2Mailer#drip4",
+      "StartupAlistInviteV2Mailer#drip5",
+      "StartupAlistInviteV2Mailer#drip6",
+      "TalentMailer#upcoming_renewal",
+      "Sales::ReactivationDripperMailer#drip_1",
+      "Sales::ReactivationDripperMailer#drip_2",
+      "Sales::ReactivationDripperMailer#drip_3"
+    ]);
+
+    const cadenceMeta = {
+      "one-time": {
+        label: "One-time",
+        cssClass: "cadence-one-time",
+        description: "Lifecycle milestone, workflow, or drip step that runs once per entry into that path."
+      },
+      weekly: {
+        label: "Weekly",
+        cssClass: "cadence-weekly",
+        description: "Recurring weekly or user-configurable digest/reminder."
+      },
+      "event-based": {
+        label: "Event-based",
+        cssClass: "cadence-event-based",
+        description: "Transactional or state-triggered email that can fire whenever the product event happens."
+      }
+    };
+
+    const sequences = [
+      {
+        name: "Recruit onboarding workflow",
+        meta: "Started by CreateCompany -> Email::RecruitOnboarding::SendWorker. Iterable workflow 411322.",
+        steps: [
+          ["Wait for workday", "Entry guard in Iterable"],
+          ["Create job listings that stand out", "First onboarding email"],
+          ["Wait 1 day", "Delay"],
+          ["How to connect your ATS?", "ATS education"],
+          ["Wait 3 days", "Delay"],
+          ["Salary setting tips", "Job quality education"],
+          ["Wait 4 days + workday", "Delay"],
+          ["Streamline your interview", "Process education"],
+          ["Wait 4 days", "Delay"],
+          ["Use benefits to attract top talent", "Profile quality education"]
+        ]
+      },
+      {
+        name: "Recruiter invite nurturing",
+        meta: "Admin-initiated invite -> RecruiterNurturingSequence workflow 381134.",
+        steps: [
+          ["Recruiter Invite Initial Email", "Invite sent"],
+          ["Wait 5 days", "Delay"],
+          ["Invite still pending?", "Iterable branch"],
+          ["Recruiter Invite Reminder 2", "Reminder"],
+          ["Wait 4 days", "Delay"],
+          ["Invite still pending?", "Iterable branch"],
+          ["Recruiter Invite Reminder 3", "Reminder"],
+          ["Wait 3 days", "Delay"],
+          ["Recruit Invite - Zoom Link", "Fallback CTA"]
+        ]
+      },
+      {
+        name: "Saved-search upsell drip",
+        meta: "SavedSearchDripper via Caffeinate; triggered after saved-search qualification.",
+        steps: [
+          ["Drip 1", "1 business day"],
+          ["Drip 2", "4 business days"],
+          ["Drip 3", "8 business days"],
+          ["Drip 4", "12 business days and marks sales campaign complete"]
+        ]
+      },
+      {
+        name: "A-List startup invite V2",
+        meta: "Startup invite opt-in schedules StartupAlistInviteV2Mailer after 1 hour.",
+        steps: [
+          ["Drip 1", "Day 1"],
+          ["Drip 2", "Day 4"],
+          ["Drip 3", "Day 8"],
+          ["Drip 4", "Day 12"],
+          ["Drip 5", "Day 15"],
+          ["Drip 6", "Day 20"]
+        ]
+      },
+      {
+        name: "Sales reactivation drip",
+        meta: "ReactivationDripper via Caffeinate for inactive startup contacts.",
+        steps: [
+          ["Quick question: are you hiring again?", "1 business day"],
+          ["Re: Quick question: are you hiring again?", "4 business days"],
+          ["Hand-picked candidates", "7 business days"]
+        ]
+      }
+    ];
+
+    const evidence = [
+      {
+        title: "Company creation starts onboarding",
+        body: "CreateCompany opt-in schedules both the local welcome email and the RecruitOnboarding Iterable workflow.",
+        ref: "app/graphql/mutations/talent/create_company.rb:40-42"
+      },
+      {
+        title: "Incomplete profile nudge",
+        body: "Recruit onboarding schedules IncompleteStartupReminder three days after company onboarding.",
+        ref: "app/services/talent/recruit/onboarding_service.rb:23"
+      },
+      {
+        title: "Recruiter invite paths",
+        body: "RecruiterInvite sends the direct invite campaign and can also trigger pending-invite and nurturing workflows.",
+        ref: "app/models/recruiter_invite.rb:87-98"
+      },
+      {
+        title: "Job publish confirmation",
+        body: "JobListing sends post-confirmation emails to the creator plus recruiting contacts/subscribers.",
+        ref: "app/models/job_listing.rb:560-568"
+      },
+      {
+        title: "Application notification split",
+        body: "RecruitingStartups sends candidate_interested_email for one candidate and review_candidates_digest for grouped candidates.",
+        ref: "lib/notifier/recruiting_startups.rb:53-79"
+      },
+      {
+        title: "Match emails",
+        body: "When a pairing matches, the code sends both candidate_match_email and company_match_email.",
+        ref: "app/models/job_pairing.rb:711-713"
+      },
+      {
+        title: "Conversation replies",
+        body: "Conversation reply notifications send synchronously to each subscriber except the sender.",
+        ref: "app/models/conversation.rb:198-221"
+      },
+      {
+        title: "Weekly new candidates",
+        body: "AList events enqueue a weekly curated email batch, which delivers Email::NewCandidates where previews exist.",
+        ref: "a_list/app/services/a_list/companies/candidate_profile_search_mailer.rb:57-64"
+      },
+      {
+        title: "Weekly reveals reminder",
+        body: "The weekly_reveals rake task selects sent but incomplete lists with no reminder_sent_at and enqueues reminder workers.",
+        ref: "lib/tasks/weekly_reveals.rake:6-18"
+      },
+      {
+        title: "Caffeinate drip cadence",
+        body: "SavedSearchDripper and ReactivationDripper define business-day cadence and abort conditions before each drip.",
+        ref: "app/drippers/saved_search_dripper.rb:8-11; app/drippers/reactivation_dripper.rb:5-7"
+      }
+    ];
+
+    const stageById = new Map(stages.map((stage) => [stage.id, stage]));
+    const typeClass = {
+      "local mailer": "local",
+      "Iterable campaign": "campaign",
+      "Iterable workflow": "workflow",
+      "Caffeinate drip": "drip"
+    };
+
+    const fmt = new Intl.NumberFormat("en-US");
+    const search = document.getElementById("search");
+    const stageFilter = document.getElementById("stageFilter");
+    const typeFilter = document.getElementById("typeFilter");
+    const cadenceFilter = document.getElementById("cadenceFilter");
+    const reachFilter = document.getElementById("reachFilter");
+    const journey = document.getElementById("journey");
+    const emailCards = document.getElementById("emailCards");
+    const detailPanel = document.getElementById("detailPanel");
+    const emptyState = document.getElementById("emptyState");
+
+    function number(value) {
+      return value === null || value === undefined ? "TBD" : fmt.format(value);
+    }
+
+    function percent(value) {
+      return value === null || value === undefined ? "TBD" : `${value.toFixed(2).replace(/\.00$/, "")}%`;
+    }
+
+    function isReach(email) {
+      return ["yes", "potential", "check", "tbc"].includes(String(email.reach || "").toLowerCase());
+    }
+
+    function cadenceFor(email) {
+      if (weeklyEmails.has(email.name)) return "weekly";
+      if (oneTimeEmails.has(email.name)) return "one-time";
+
+      const timing = String(email.timing || "").toLowerCase();
+      if (timing.includes("weekly")) return "weekly";
+      if (timing.includes("workflow") || timing.includes("drip") || timing.includes("sequence")) return "one-time";
+      return "event-based";
+    }
+
+    function pill(label, extra = "") {
+      return `<span class="pill ${extra}">${label}</span>`;
+    }
+
+    function cadencePill(email) {
+      const cadence = cadenceFor(email);
+      const meta = cadenceMeta[cadence];
+      return pill(meta.label, `cadence ${meta.cssClass}`);
+    }
+
+    function emailPills(email) {
+      return [
+        cadencePill(email),
+        pill(email.deliveryType, typeClass[email.deliveryType] || ""),
+        email.iterableId ? pill(`#${email.iterableId}`) : "",
+        isReach(email) ? pill("Reach", "reach") : ""
+      ].join("");
+    }
+
+    function filteredEmails() {
+      const query = search.value.trim().toLowerCase();
+      const selectedStage = stageFilter.value;
+      const selectedType = typeFilter.value;
+      const selectedCadence = cadenceFilter.value;
+      const reachOnly = reachFilter.classList.contains("active");
+
+      return visibleEmails.filter((email) => {
+        const cadence = cadenceFor(email);
+        const haystack = [
+          email.name,
+          email.audience,
+          email.trigger,
+          email.timing,
+          email.deliveryType,
+          cadenceMeta[cadence].label,
+          email.code,
+          stageById.get(email.stage)?.name
+        ].join(" ").toLowerCase();
+
+        return (!query || haystack.includes(query)) &&
+          (selectedStage === "all" || email.stage === selectedStage) &&
+          (selectedType === "all" || email.deliveryType === selectedType) &&
+          (selectedCadence === "all" || cadence === selectedCadence) &&
+          (!reachOnly || isReach(email));
+      });
+    }
+
+    function totals(rows) {
+      return rows.reduce((acc, email) => {
+        acc.sends += email.sends || 0;
+        acc.delivered += email.delivered || 0;
+        acc.clicks += email.uniqueClicks || 0;
+        acc.withMetrics += email.sends === null || email.sends === undefined ? 0 : 1;
+        return acc;
+      }, { sends: 0, delivered: 0, clicks: 0, withMetrics: 0 });
+    }
+
+    function renderOverview() {
+      const allTotals = totals(visibleEmails);
+      const highVolume = [...visibleEmails]
+        .filter((email) => Number.isFinite(email.sends))
+        .sort((a, b) => b.sends - a.sends)[0];
+      const cadenceCounts = visibleEmails.reduce((acc, email) => {
+        const cadence = cadenceFor(email);
+        acc[cadence] += 1;
+        return acc;
+      }, { "one-time": 0, weekly: 0, "event-based": 0 });
+
+      document.getElementById("overviewMetrics").innerHTML = [
+        ["Email surfaces", visibleEmails.length, "Rows mapped from Notion; zero-send rows hidden"],
+        ["30d sends", number(allTotals.sends), `${allTotals.withMetrics} rows with metrics`],
+        ["Unique clicks", number(allTotals.clicks), "Known rows only"],
+        ["Cadence mix", `${cadenceCounts["one-time"]}/${cadenceCounts.weekly}/${cadenceCounts["event-based"]}`, "one-time / weekly / event-based"],
+        ["Largest sender", highVolume ? shortName(highVolume.name) : "TBD", highVolume ? number(highVolume.sends) + " sends" : ""]
+      ].map(([label, value, sub]) => `
+        <div class="metric">
+          <div class="metric-value">${value}</div>
+          <div class="metric-label">${label}<br>${sub}</div>
+        </div>
+      `).join("");
+    }
+
+    function shortName(name) {
+      return name.replace("TalentMailer#", "Talent#").replace("Mailer#", "#").replace("Email::", "");
+    }
+
+    function renderJourney() {
+      const rows = filteredEmails();
+
+      journey.innerHTML = stages.map((stage, index) => {
+        const stageEmails = rows.filter((email) => email.stage === stage.id);
+        const stageTotals = totals(stageEmails);
+        const list = stageEmails.slice(0, 7).map((email) => `
+          <div class="email-mini" tabindex="0" role="button" data-email="${email.name}">
+            <div class="mini-title">
+              <span>${shortName(email.name)}</span>
+            </div>
+            <div class="mini-meta">${emailPills(email)}</div>
+            <div class="mini-performance">
+              <div><strong>${number(email.sends)}</strong><span>30d sent</span></div>
+              <div><strong>${percent(email.ctr)}</strong><span>click rate</span></div>
+            </div>
+            <div class="mini-trigger">${email.trigger}</div>
+            <a class="mini-link" href="${email.notion}" target="_blank" rel="noreferrer" onclick="event.stopPropagation()">See email in Notion</a>
+          </div>
+        `).join("");
+
+        return `
+          <article class="stage">
+            <div class="stage-head">
+              <div class="stage-index">${String(index + 1).padStart(2, "0")}</div>
+              <div class="stage-name">${stage.name}</div>
+              <div class="stage-desc">${stage.description}</div>
+            </div>
+            <div class="stage-stats">
+              <div class="stage-stat"><strong>${stageEmails.length}</strong><span>emails</span></div>
+              <div class="stage-stat"><strong>${number(stageTotals.sends)}</strong><span>30d sends</span></div>
+            </div>
+            <div class="stage-list">
+              ${list || `<div class="mini-trigger">No emails after filters.</div>`}
+              ${stageEmails.length > 7 ? `<div class="mini-trigger">+ ${stageEmails.length - 7} more in row list</div>` : ""}
+            </div>
+          </article>
+        `;
+      }).join("");
+
+      journey.querySelectorAll("[data-email]").forEach((node) => {
+        node.addEventListener("click", () => selectEmail(node.dataset.email));
+        node.addEventListener("keydown", (event) => {
+          if (event.key === "Enter" || event.key === " ") {
+            event.preventDefault();
+            selectEmail(node.dataset.email);
+          }
+        });
+      });
+    }
+
+    function renderCards() {
+      const rows = filteredEmails();
+      emptyState.hidden = rows.length > 0;
+
+      emailCards.innerHTML = rows.map((email) => `
+        <article class="email-card" data-email-card="${email.name}">
+          <h3>${email.name}</h3>
+          <div class="mini-meta">
+            ${pill(stageById.get(email.stage).name)}
+            ${emailPills(email)}
+          </div>
+          <div class="card-grid">
+            <div class="card-kpi"><strong>${number(email.sends)}</strong><span>30d sent</span></div>
+            <div class="card-kpi"><strong>${percent(email.ctr)}</strong><span>click rate</span></div>
+          </div>
+          <div class="trigger-text">${email.trigger}</div>
+          <div class="links">
+            <a class="link-button" href="${email.notion}" target="_blank" rel="noreferrer">See email in Notion</a>
+            <button class="link-button" type="button" data-email="${email.name}">Details</button>
+          </div>
+        </article>
+      `).join("");
+
+      emailCards.querySelectorAll("[data-email]").forEach((node) => {
+        node.addEventListener("click", () => selectEmail(node.dataset.email));
+      });
+    }
+
+    function selectEmail(name) {
+      const email = visibleEmails.find((row) => row.name === name) || filteredEmails()[0] || visibleEmails[0];
+      const cadence = cadenceFor(email);
+      const cadenceInfo = cadenceMeta[cadence];
+
+      detailPanel.innerHTML = `
+        <h3>${email.name}</h3>
+        <div class="mini-meta">${pill(stageById.get(email.stage).name)}${emailPills(email)}</div>
+        <div class="detail-body">
+          <div class="detail-row"><span>Cadence</span><p><strong>${cadenceInfo.label}</strong> ${cadenceInfo.description}</p></div>
+          <div class="detail-row"><span>Trigger</span><p>${email.trigger}</p></div>
+          <div class="detail-row"><span>Timing</span><p>${email.timing}</p></div>
+          <div class="detail-row"><span>Audience</span><p>${email.audience}</p></div>
+          <div class="detail-row"><span>30d performance</span><strong>${number(email.sends)} sent, ${percent(email.ctr)} click rate</strong><p>${number(email.delivered)} delivered, ${number(email.uniqueClicks)} unique clicks</p></div>
+          <div class="detail-row"><span>Code evidence</span><p><code>${email.code || "TBD"}</code></p></div>
+          <div class="links">
+            <a class="link-button" href="${email.notion}" target="_blank" rel="noreferrer">See email in Notion</a>
+          </div>
+        </div>
+      `;
+
+      document.querySelectorAll("[data-email-card]").forEach((node) => {
+        node.style.borderColor = node.dataset.emailCard === email.name ? "var(--green)" : "var(--line)";
+      });
+    }
+
+    function renderSequences() {
+      document.getElementById("sequences").innerHTML = sequences.map((sequence) => `
+        <article class="sequence-panel">
+          <h3>${sequence.name}</h3>
+          <p class="sequence-meta">${sequence.meta}</p>
+          <div class="sequence-steps">
+            ${sequence.steps.map(([label, sub], index) => `
+              <div class="step">
+                <div class="step-number">${index + 1}</div>
+                <div class="step-copy">${label}<small>${sub}</small></div>
+              </div>
+            `).join("")}
+          </div>
+        </article>
+      `).join("");
+    }
+
+    function renderEvidence() {
+      document.getElementById("evidence").innerHTML = evidence.map((item) => `
+        <article class="evidence-panel">
+          <h3>${item.title}</h3>
+          <p>${item.body}</p>
+          <span class="code-ref">${item.ref}</span>
+        </article>
+      `).join("");
+    }
+
+    function populateFilters() {
+      stages.forEach((stage) => {
+        const option = document.createElement("option");
+        option.value = stage.id;
+        option.textContent = stage.name;
+        stageFilter.appendChild(option);
+      });
+
+      [...new Set(visibleEmails.map((email) => email.deliveryType))].sort().forEach((type) => {
+        const option = document.createElement("option");
+        option.value = type;
+        option.textContent = type;
+        typeFilter.appendChild(option);
+      });
+    }
+
+    function renderAll() {
+      renderJourney();
+      renderCards();
+      selectEmail((filteredEmails()[0] || visibleEmails[0]).name);
+    }
+
+    populateFilters();
+    renderOverview();
+    renderSequences();
+    renderEvidence();
+    renderAll();
+
+    [search, stageFilter, typeFilter, cadenceFilter].forEach((node) => {
+      node.addEventListener("input", renderAll);
+      node.addEventListener("change", renderAll);
+    });
+
+    reachFilter.addEventListener("click", () => {
+      reachFilter.classList.toggle("active");
+      renderAll();
+    });
+  </script>
+</body>
+</html>
