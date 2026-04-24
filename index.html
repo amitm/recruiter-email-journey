@@ -853,7 +853,7 @@
       {
         id: "discovery",
         name: "Candidate discovery",
-        description: "Curated lists, saved searches, weekly reveals, new candidates, and sourcing digests."
+        description: "Curated lists, weekly reveals, new candidates, and sourcing digests."
       },
       {
         id: "application",
@@ -863,7 +863,7 @@
       {
         id: "reach",
         name: "A-List and Reach upsell",
-        description: "Curated permission, first pitch, pipeline check-in, free-trial, Recruit Unlimited, and A-List drip paths."
+        description: "Saved-search upsell, curated permission, first pitch, pipeline check-in, Recruit Unlimited, and A-List drip paths."
       },
       {
         id: "ops",
@@ -1163,7 +1163,7 @@
       },
       {
         name: "Source::SavedSearchDripperMailer#drip1",
-        stage: "discovery",
+        stage: "reach",
         deliveryType: "Caffeinate drip",
         audience: "A-List company user with saved search",
         trigger: "A-List recruiter is eligible for saved-search upsell.",
@@ -1179,7 +1179,7 @@
       },
       {
         name: "Source::SavedSearchDripperMailer#drip2",
-        stage: "discovery",
+        stage: "reach",
         deliveryType: "Caffeinate drip",
         audience: "A-List company user",
         trigger: "Saved-search upsell sequence continues.",
@@ -1195,7 +1195,7 @@
       },
       {
         name: "Source::SavedSearchDripperMailer#drip3",
-        stage: "discovery",
+        stage: "reach",
         deliveryType: "Caffeinate drip",
         audience: "A-List company user",
         trigger: "Saved-search upsell sequence continues.",
@@ -1211,7 +1211,7 @@
       },
       {
         name: "Source::SavedSearchDripperMailer#drip4",
-        stage: "discovery",
+        stage: "reach",
         deliveryType: "Caffeinate drip",
         audience: "A-List company user",
         trigger: "Saved-search upsell sequence final email.",
