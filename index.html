@@ -388,6 +388,12 @@
       color: #5b3f7b;
     }
 
+    .pill.upsell {
+      background: #eadccf;
+      color: #704421;
+      font-weight: 680;
+    }
+
     .pill.cadence {
       font-weight: 680;
     }
@@ -1792,6 +1798,20 @@
       "Sales::ReactivationDripperMailer#drip_3"
     ]);
 
+    const savedSearchUpsellEmails = new Set([
+      "Source::SavedSearchDripperMailer#drip1",
+      "Source::SavedSearchDripperMailer#drip2",
+      "Source::SavedSearchDripperMailer#drip3",
+      "Source::SavedSearchDripperMailer#drip4"
+    ]);
+
+    const intentMeta = {
+      "saved-search-upsell": {
+        label: "Reach upsell",
+        description: "Saved-search usage qualifies a Sales::Campaign, starts SavedSearchDripper, and pitches wellfound:ai/Autopilot for expanded reach."
+      }
+    };
+
     const cadenceMeta = {
       "one-time": {
         label: "One-time",
@@ -1925,6 +1945,11 @@
         title: "Caffeinate drip cadence",
         body: "SavedSearchDripper and ReactivationDripper define business-day cadence and abort conditions before each drip.",
         ref: "app/drippers/saved_search_dripper.rb:8-11; app/drippers/reactivation_dripper.rb:5-7"
+      },
+      {
+        title: "Saved-search dripper is an upsell",
+        body: "Sales::Campaign#send! starts SavedSearchDripper for the saved_search campaign, and the mailer completes that campaign while pitching wellfound:ai/Autopilot for expanded reach.",
+        ref: "app/models/sales/campaign.rb:77-82; app/mailers/source/saved_search_dripper_mailer.rb:7-21,30-34"
       }
     ];
 
@@ -1969,6 +1994,11 @@
       return "event-based";
     }
 
+    function intentFor(email) {
+      if (savedSearchUpsellEmails.has(email.name)) return intentMeta["saved-search-upsell"];
+      return null;
+    }
+
     function pill(label, extra = "") {
       return `<span class="pill ${extra}">${label}</span>`;
     }
@@ -1982,6 +2012,7 @@
     function emailPills(email) {
       return [
         cadencePill(email),
+        intentFor(email) ? pill(intentFor(email).label, "upsell") : "",
         pill(email.deliveryType, typeClass[email.deliveryType] || ""),
         email.iterableId ? pill(`#${email.iterableId}`) : "",
         isReach(email) ? pill("Reach", "reach") : ""
@@ -2003,6 +2034,7 @@
           email.trigger,
           email.timing,
           email.deliveryType,
+          intentFor(email)?.label,
           cadenceMeta[cadence].label,
           email.code,
           stageById.get(email.stage)?.name
@@ -2138,11 +2170,13 @@
       const email = visibleEmails.find((row) => row.name === name) || filteredEmails()[0] || visibleEmails[0];
       const cadence = cadenceFor(email);
       const cadenceInfo = cadenceMeta[cadence];
+      const intent = intentFor(email);
 
       detailPanel.innerHTML = `
         <h3>${email.name}</h3>
         <div class="mini-meta">${pill(stageById.get(email.stage).name)}${emailPills(email)}</div>
         <div class="detail-body">
+          ${intent ? `<div class="detail-row"><span>Intent</span><p><strong>${intent.label}</strong> ${intent.description}</p></div>` : ""}
           <div class="detail-row"><span>Cadence</span><p><strong>${cadenceInfo.label}</strong> ${cadenceInfo.description}</p></div>
           <div class="detail-row"><span>Trigger</span><p>${email.trigger}</p></div>
           <div class="detail-row"><span>Timing</span><p>${email.timing}</p></div>
